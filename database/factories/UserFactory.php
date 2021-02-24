@@ -30,6 +30,7 @@ class UserFactory extends Factory
             'remember_token' => Str::random(10),
             'nickname' => $this->faker->nickname,
             'phone' => $this->faker->phone,
+            'admin' => $this->faker->admin,
         ];
     }
 

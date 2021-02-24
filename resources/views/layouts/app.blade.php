@@ -23,10 +23,10 @@
     <div id="app">
         <nav class="navbar navbar-expand-md header">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                <a class="navbar-brand text-white header__navbar-brand" href="{{ url('/') }}">
+                    <img src="{{ asset('img/free-logo-fullwhite.svg') }}" alt="Freeads Logo" class="header__logo">
                 </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -37,31 +37,32 @@
                     </ul>
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
+                    <ul class="navbar-nav ml-auto align-items-baseline">
                         <!-- Authentication Links -->
                         @guest
-                            @if (Route::has('login'))
+                            @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Log in') }}</a>
+                                    <a class="nav-link header__nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                </li>
+                            @endif
+
+                            @if (Route::has('login'))
+                                <li class="nav-item ml-md-3">
+                                    <a class="btn btn-custom-secondary" href="{{ route('login') }}">{{ __('Log in') }}</a>
                                 </li>
                             @endif
                             
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
                         @else
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('myads') }}">{{ __('My ads') }}</a>
+                                <a class="nav-link header__nav-link" href="{{ route('myads') }}">{{ __('My ads') }}</a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('myinfo') }}">{{ __('My info') }}</a>
+                                <a class="nav-link header__nav-link" href="{{ route('myinfo') }}">{{ __('Profile') }}</a>
                             </li>
 
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('logout') }}">{{ __('Log out') }}</a>
+                            <li class="nav-item ml-md-3">
+                                <a class="btn btn-custom-secondary" href="{{ route('logout') }}">{{ __('Log out') }}</a>
                             </li>
                         @endguest
                     </ul>
@@ -72,6 +73,14 @@
         <main class="py-4">
             @yield('content')
         </main>
+
+        <footer class="footer">
+            <div class="d-flex w-100 h-100 justify-content-center align-items-center">
+                <a href="{{ url('/') }}">
+                    <img src="{{ asset('img/free-logo-white-redpin.svg') }}" alt="Freeads Logo" class="footer__logo">
+                </a>
+            </div>
+        </footer>
     </div>
 </body>
 </html>

@@ -1,0 +1,9 @@
+.btn-custom-secondary {
+    background-color: $secondary-color;
+    color: $white;
+
+    &:hover {
+        background-color: darken($secondary-color, 5%);
+        color: $white;
+    }
+}

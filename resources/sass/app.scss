@@ -2,10 +2,17 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 
 // Variables
-@import 'variables';
+@import 'default/variables';
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+// Default modifs
+@import 'default/default';
+
 // Layouts
 @import 'layouts/header';
+@import 'layouts/footer';
+
+// Molecules
+@import 'molecules/btn-custom';

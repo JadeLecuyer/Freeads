@@ -1,7 +1,17 @@
 .header {
+    min-height: 4rem;
     background-color: $primary-color;
 
-    & a {
-        color: $white;
+    &__nav-link {
+        color: $gray-200;
+
+        &:hover {
+            color: $white;
+        }
+    }
+
+    &__logo {
+        height: 2rem;
+        width: auto;
     }
 }
