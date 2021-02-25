@@ -2,12 +2,12 @@
     <div class="card card-ad">
         <div class="row no-gutters">
             <div class="col-md-5 card-ad__wrapper-img">
-                <a href=""><img src="{{ $ad->picture }}" alt="{{ $ad->title }}" class="card-ad__img mw-100"></a>
+                <a href="{{ route('ads.show',$ad->id) }}"><img src="{{ asset($ad->picture) }}" alt="{{ $ad->title }}" class="card-ad__img mw-100"></a>
             </div>
             <div class="col-md-7">
                 <div class="card-body h-100 d-flex flex-column justify-content-between">
                     <div class="card-ad__title mb-2">
-                        <a href="" class="card-title">{{ $ad->title }}</a>
+                        <a href="{{ route('ads.show',$ad->id) }}" class="card-title">{{ $ad->title }}</a>
                     </div>
                     <div class="mb-2">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-geo-alt card-ad__location-icon" viewBox="0 0 16 16">
@@ -18,7 +18,7 @@
                     </div>
                     <div class="d-flex justify-content-between align-items-baseline">
                         <p class="card-text">{{ $ad->price }}$</p>
-                        <a href="" class="btn btn-custom-secondary--negative">See ad</a>
+                        <a href="{{ route('ads.show',$ad->id) }}" class="btn btn-custom-secondary--negative">See ad</a>
                     </div>
                 </div>
             </div>

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 
 class AdController extends Controller
@@ -89,7 +90,8 @@ class AdController extends Controller
      */
     public function show(Ad $ad)
     {
-        return view('viewad',compact('ad'));
+        $seller = User::find($ad->user_id);
+        return view('viewad',array_merge(compact('ad'), ['seller' => $seller]));
     }
 
     /**

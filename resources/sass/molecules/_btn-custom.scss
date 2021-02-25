@@ -29,3 +29,10 @@
         color: $white;
     }
 }
+
+.btn {
+    &__logo {
+        height: 1.2rem;
+        width: auto;
+    }
+}
