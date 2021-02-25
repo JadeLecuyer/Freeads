@@ -1,0 +1,53 @@
+.card-ad {
+    border: 1px solid $gray-500;
+    border-radius: 1rem;
+    overflow: hidden;
+
+    &__title {
+        width: 100%;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+
+        & a {
+            color: $dark;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 300ms ease-out;
+    
+            &:hover {
+                color: $primary-color;
+            }
+        }
+    }
+
+    &__wrapper-img {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+
+        &::after {
+            content: "";
+            display: block;
+            padding-bottom: 80%;
+        }
+    }
+
+    &__img {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: 50% 50%;
+        transition: transform 500ms ease-out;
+
+        &:hover {
+            transform: scale(1.1);
+        }
+    }
+
+    &__location-icon {
+        height: 1.5rem;
+        width: auto;
+    }
+}

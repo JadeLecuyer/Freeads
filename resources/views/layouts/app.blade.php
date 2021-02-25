@@ -53,13 +53,24 @@
                             @endif
                             
                         @else
-                            <li class="nav-item">
-                                <a class="nav-link header__nav-link" href="{{ route('ads.index') }}">{{ __('My ads') }}</a>
-                            </li>
 
-                            <li class="nav-item">
-                                <a class="nav-link header__nav-link" href="{{ route('myinfo') }}">{{ __('Profile') }}</a>
-                            </li>
+                            @if (Auth::user()->admin)
+                                <li class="nav-item">
+                                    <a class="nav-link header__nav-link" href="{{ route('ads.index') }}">{{ __('Ads administration') }}</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link header__nav-link" href="{{ route('myinfo') }}">{{ __('Users administration') }}</a>
+                                </li>
+                            @else
+                                <li class="nav-item">
+                                    <a class="nav-link header__nav-link" href="{{ route('ads.index') }}">{{ __('My ads') }}</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link header__nav-link" href="{{ route('myinfo') }}">{{ __('Profile') }}</a>
+                                </li>
+                            @endif
 
                             <li class="nav-item ml-md-3">
                                 <a class="btn btn-custom-secondary" href="{{ route('logout') }}">{{ __('Log out') }}</a>

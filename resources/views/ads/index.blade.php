@@ -12,32 +12,34 @@
             <p class="m-0">{{ $message }}</p>
         </div>
     @endif
-   
-    <table class="table table-hover">
-        <tr>
-            <th>Title</th>
-            <th>Category</th>
-            <th>Price</th>
-            <th>Action</th>
-        </tr>
-        @foreach ($ads as $ad)
-        <tr>
-            <td>{{ $ad->title }}</td>
-            <td>{{ $ad->category }}</td>
-            <td>{{ $ad->price }}</td>
-            <td class="d-flex">
-                <a class="btn btn-success mr-2" href="{{ route('ads.edit',$ad->id) }}">Edit</a>
-                <form action="{{ route('ads.destroy',$ad->id) }}" method="POST">
-       
-                    @csrf
-                    @method('DELETE')
-      
-                    <button type="submit" class="btn btn-danger">Delete</button>
-                </form>
-            </td>
-        </tr>
-        @endforeach
-    </table>
+
+   <div class="table-responsive">
+        <table class="table table-hover">
+            <tr>
+                <th>Title</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Action</th>
+            </tr>
+            @foreach ($ads as $ad)
+            <tr>
+                <td>{{ $ad->title }}</td>
+                <td>{{ $ad->category }}</td>
+                <td>{{ $ad->price }}</td>
+                <td class="d-flex">
+                    <a class="btn btn-success mr-2" href="{{ route('ads.edit',$ad->id) }}">Edit</a>
+                    <form action="{{ route('ads.destroy',$ad->id) }}" method="POST">
+        
+                        @csrf
+                        @method('DELETE')
+        
+                        <button type="submit" class="btn btn-custom-primary">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            @endforeach
+        </table>
+    </div>
   
     {!! $ads->links() !!}
 

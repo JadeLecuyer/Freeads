@@ -1,3 +1,11 @@
 main {
     min-height: calc(100vh - 6rem - 4rem);
 }
+
+.card-header {
+    background-color: transparent;
+}
+
+.mw-50 {
+    max-width: 50%;
+}

@@ -37,6 +37,8 @@
 
         <div class="form-group my-3">
             <label for="picture" class="form-label">Your ad's picture</label>
+            <img src="{{ asset($ad->picture) }}" alt="{{ $ad->title }}" class="d-block mw-50">
+            <small class="form-text text-muted mb-2">Current picture</small>
             <input type="file" name="picture" id="picture" class="form-control-file">
             <small class="form-text text-muted">The file must be a valid image format (jpg, jpeg, png, bmp, gif, svg, or webp) and be under 300ko.</small>
         </div>

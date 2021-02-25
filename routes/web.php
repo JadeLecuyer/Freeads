@@ -19,10 +19,8 @@ use App\Http\Controllers\AdController;
 */
 
 
-// index route
-Route::get('/', function () {
-    return view('index');
-});
+// Index route
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
 // Authentication system related routes

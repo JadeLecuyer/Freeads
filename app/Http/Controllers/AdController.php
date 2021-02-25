@@ -18,7 +18,7 @@ class AdController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->authorizeResource(Ad::class, 'ad');
     }
 
     /**
@@ -31,12 +31,10 @@ class AdController extends Controller
         $user = Auth::user();
 
         if ($user->admin) {
-
-        $ads = AD::latest()->paginate(10);
+            $ads = Ad::latest()->paginate(10);
 
         } elseif (!$user->admin) {
-        $ads = AD::where('user_id', $user->id)->latest()->paginate(10);
-
+            $ads = Ad::where('user_id', $user->id)->latest()->paginate(10);
         }
 
         return view('ads.index',compact('ads'))
@@ -89,10 +87,10 @@ class AdController extends Controller
      * @param  \App\Models\Ad  $ad
      * @return \Illuminate\Http\Response
      */
-    /*public function show(Ad $ad)
+    public function show(Ad $ad)
     {
-        //
-    }*/
+        return view('viewad',compact('ad'));
+    }
 
     /**
      * Show the form for editing the specified resource.

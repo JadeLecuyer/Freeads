@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Ad;
+
 
 class HomeController extends Controller
 {
@@ -13,7 +15,6 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
     }
 
     /**
@@ -23,6 +24,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('index');
+        $ads = Ad::latest()->paginate(6);
+
+        return view('index',compact('ads'))
+        ->with('i', (request()->input('page', 1) - 1) * 6);
     }
 }

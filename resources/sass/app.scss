@@ -10,9 +10,12 @@
 // Default modifs
 @import 'default/default';
 
+// Molecules
+@import 'molecules/btn-custom';
+
 // Layouts
 @import 'layouts/header';
 @import 'layouts/footer';
 
-// Molecules
-@import 'molecules/btn-custom';
+// Card
+@import 'cards/card-ad';
