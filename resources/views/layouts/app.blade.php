@@ -54,7 +54,7 @@
                             
                         @else
                             <li class="nav-item">
-                                <a class="nav-link header__nav-link" href="{{ route('myads') }}">{{ __('My ads') }}</a>
+                                <a class="nav-link header__nav-link" href="{{ route('ads.index') }}">{{ __('My ads') }}</a>
                             </li>
 
                             <li class="nav-item">

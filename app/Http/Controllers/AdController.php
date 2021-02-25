@@ -6,6 +6,7 @@ use App\Models\Ad;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 
 
 class AdController extends Controller
@@ -27,10 +28,19 @@ class AdController extends Controller
      */
     public function index()
     {
-        $ads = AD::latest()->paginate(5);
-    
+        $user = Auth::user();
+
+        if ($user->admin) {
+
+        $ads = AD::latest()->paginate(10);
+
+        } elseif (!$user->admin) {
+        $ads = AD::where('user_id', $user->id)->latest()->paginate(10);
+
+        }
+
         return view('ads.index',compact('ads'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+        ->with('i', (request()->input('page', 1) - 1) * 10);
     }
 
     /**
@@ -40,7 +50,7 @@ class AdController extends Controller
      */
     public function create()
     {
-        return view('ads.create');
+        return view('ads.create', ['categories' => Ad::CATEGORY_VALUES]);
     }
 
     /**
@@ -53,15 +63,21 @@ class AdController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required|min:10|max:255',
-            'category' => Rule::in(['Accomodation', 'Fashion', 'Furniture', 'Jobs', 'Leisure', 'Motors', 'Multimedia', 'Pets', 'Services']),
+            'category' => Rule::in(Ad::CATEGORY_VALUES),
             'description' => 'required',
             'picture' => 'required|image|max:300',
             'price' => 'required|min:0',
             'location' => 'required',
-            'user_id' => 'required',
         ]);
 
-        Ad::create($request->all());
+        // generates name for picture and moves it to public/img/ads
+        $imgName = time().'.'.$request->picture->extension();
+        $request->picture->move(public_path('img/ads'), $imgName);
+
+        // path to image from public folder to store in DB (to use with asset() helper for display)
+        $imgPath = 'img/ads/' . $imgName;
+
+        Ad::create(array_merge($request->all(), ['user_id' => Auth::user()->id, 'picture' => $imgPath]));
      
         return redirect()->route('ads.index')
                         ->with('success','Ad created successfully.');
@@ -73,10 +89,10 @@ class AdController extends Controller
      * @param  \App\Models\Ad  $ad
      * @return \Illuminate\Http\Response
      */
-    public function show(Ad $ad)
+    /*public function show(Ad $ad)
     {
         //
-    }
+    }*/
 
     /**
      * Show the form for editing the specified resource.
@@ -86,7 +102,7 @@ class AdController extends Controller
      */
     public function edit(Ad $ad)
     {
-        return view('ads.edit',compact('ad'));
+        return view('ads.edit',array_merge(compact('ad'), ['categories' => Ad::CATEGORY_VALUES]));
     }
 
     /**
@@ -100,18 +116,33 @@ class AdController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required|min:10|max:255',
-            'category' => Rule::in(['Accomodation', 'Fashion', 'Furniture', 'Jobs', 'Leisure', 'Motors', 'Multimedia', 'Pets', 'Services']),
+            'category' => Rule::in(Ad::CATEGORY_VALUES),
             'description' => 'required',
-            'picture' => 'required|image|max:300',
+            'picture' => 'image|max:300',
             'price' => 'required|min:0',
             'location' => 'required',
-            'user_id' => 'required',
         ]);
 
-        $ad->update($request->all());
+        if($request->files->count() !== 0) {
+            //if a new picture was uploaded
+            //delete old one
+            unlink(public_path($ad->picture));
+
+            // generates name for picture and moves it to public/img/ads
+            $imgName = time().'.'.$request->picture->extension();
+            $request->picture->move(public_path('img/ads'), $imgName);
+            
+            // path to image from public folder to store in DB (to use with asset() helper for display)
+            $imgPath = 'img/ads/' . $imgName;
+
+            $ad->update(array_merge($request->all(), ['picture' => $imgPath]));
+        } else {
+            // if no new picture was uploaded
+            $ad->update($request->all());
+        }
      
         return redirect()->route('ads.index')
-                        ->with('success','Ad created successfully.');
+                        ->with('success','Ad updated successfully.');
     }
 
     /**
@@ -122,6 +153,7 @@ class AdController extends Controller
      */
     public function destroy(Ad $ad)
     {
+        unlink(public_path($ad->picture));
         $ad->delete();
     
         return redirect()->route('ads.index')

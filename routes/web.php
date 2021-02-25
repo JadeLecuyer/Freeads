@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
+use App\Http\Controllers\AdController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -16,10 +18,12 @@ use Illuminate\Http\Request;
 |
 */
 
+
 // index route
 Route::get('/', function () {
     return view('index');
 });
+
 
 // Authentication system related routes
 Auth::routes();
@@ -41,10 +45,9 @@ Route::post('/email/verification-notification', function (Request $request) {
 })->middleware(['auth', 'throttle:6,1'])->name('verification.resend');
 
 
+// Ads CRUD related routes 
+Route::resource('ads', AdController::class);
 
-Route::get('/myads', function () {
-    return view('welcome');
-})->name('myads');
 
 Route::get('/myinfo', function () {
     return view('welcome');
