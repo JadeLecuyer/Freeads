@@ -4,9 +4,24 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\Ad;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
+
 
 class UserController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->authorizeResource(User::class, 'user');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -18,27 +33,6 @@ class UserController extends Controller
     
         return view('users.index',compact('users'))
             ->with('i', (request()->input('page', 1) - 1) * 10);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    /*public function create()
-    {
-        return view('users.create');
-    }*/
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**
@@ -79,6 +73,12 @@ class UserController extends Controller
             'phone' => 'required|string|regex:/^0[1-9][0-9]{8}$/',
         ]);
 
+        if(Auth::user()->admin) {
+            $validated = $request->validate([
+                'admin' => 'required|boolean',
+            ]);
+        }
+
         $user->update($request->all());
 
         return redirect()->route('users.index')
@@ -93,9 +93,19 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        $userAds = Ad::where('user_id', $user->id)->get();
+        foreach($userAds as $ad) {
+            unlink(public_path($ad->picture));
+            $ad->delete();
+        }
+
         $user->delete();
     
-        return redirect()->route('users.index')
-                        ->with('success','User deleted successfully');
+        if(Auth::user()->id !== $user->id) {
+            return redirect()->route('users.index')
+                            ->with('success','User deleted successfully');
+        } else {
+            return redirect()->route('home');
+        }
     }
 }

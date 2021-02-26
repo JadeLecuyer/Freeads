@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="py-2">
-        <a href="{{ route('home') }}" class="btn btn-custom-secondary">Retour à la boutique</a>
+        <a href="{{ url()->previous() }}" class="btn btn-custom-secondary">Back</a>
     </div>
     
     <div class="row row-cols-1 row-cols-md-2 py-2">

@@ -15,8 +15,7 @@
 
     @if (Auth::user()->admin)
     <div class="my-2">
-        <form action="{{ route('ads.index') }}" method="POST">
-            @csrf
+        <form action="{{ route('ads.index') }}" method="GET">
             <div class="row justify-content-end">
                 <div class="col-9 col-md-3">
                     <select name="ads" id="ads" class="form-control">
@@ -38,6 +37,7 @@
                 <th>Title</th>
                 <th>Category</th>
                 <th>Price</th>
+                <th>Seller</th>
                 <th>Action</th>
             </tr>
             @foreach ($ads as $ad)
@@ -45,7 +45,9 @@
                 <td>{{ $ad->title }}</td>
                 <td>{{ $ad->category }}</td>
                 <td>{{ $ad->price }}</td>
+                <td>{{ $ad->login }}</td>
                 <td class="d-flex">
+                    <a class="btn btn-custom-secondary mr-2" href="{{ route('ads.show',$ad->id) }}">See</a>
                     <a class="btn btn-success mr-2" href="{{ route('ads.edit',$ad->id) }}">Edit</a>
                     <form action="{{ route('ads.destroy',$ad->id) }}" method="POST">
         

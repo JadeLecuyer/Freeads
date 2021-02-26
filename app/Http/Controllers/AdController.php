@@ -33,9 +33,9 @@ class AdController extends Controller
 
         if ($user->admin) {
             if(!empty(request()) && request()->ads === 'myads') {
-                $ads = Ad::where('user_id', $user->id)->latest()->paginate(10);
+                $ads = Ad::join('users', 'users.id', '=', 'ads.user_id')->select('ads.*', 'users.login')->where('user_id', $user->id)->latest()->paginate(10);
             } else {
-                $ads = Ad::latest()->paginate(10);
+                $ads = Ad::join('users', 'users.id', '=', 'ads.user_id')->select('ads.*', 'users.login')->latest()->paginate(10);
             }
 
         } elseif (!$user->admin) {
@@ -94,7 +94,7 @@ class AdController extends Controller
      */
     public function show(Ad $ad)
     {
-        $seller = User::find($ad->user_id);
+        $seller = User::findorfail($ad->user_id);
         return view('viewad',array_merge(compact('ad'), ['seller' => $seller]));
     }
 
