@@ -43,8 +43,11 @@ Route::post('/email/verification-notification', function (Request $request) {
 })->middleware(['auth', 'throttle:6,1'])->name('verification.resend');
 
 
-// Ads CRUD related routes 
+// Ads related routes 
 Route::resource('ads', AdController::class);
+
+Route::post('/ads', [App\Http\Controllers\AdController::class, 'index'])->name('ads.index');
+
 
 
 Route::get('/myinfo', function () {

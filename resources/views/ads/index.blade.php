@@ -13,6 +13,25 @@
         </div>
     @endif
 
+    @if (Auth::user()->admin)
+    <div class="my-2">
+        <form action="{{ route('ads.index') }}" method="POST">
+            @csrf
+            <div class="row justify-content-end">
+                <div class="col-9 col-md-3">
+                    <select name="ads" id="ads" class="form-control">
+                        <option value="" {{ (request('ads') === '') ? 'selected' : '' }}>See all ads</option>
+                        <option value="myads" {{ (request('ads') === 'myads') ? 'selected' : '' }}>See my ads</option>
+                    </select>
+                </div>
+                <div class="col-3 col-md-1">
+                    <button type="submit" class="btn btn-custom-secondary">See</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    @endif
+
    <div class="table-responsive">
         <table class="table table-hover">
             <tr>

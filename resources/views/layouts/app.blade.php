@@ -71,7 +71,6 @@
                                     <a class="nav-link header__nav-link" href="{{ route('myinfo') }}">{{ __('Profile') }}</a>
                                 </li>
                             @endif
-
                             <li class="nav-item ml-md-3">
                                 <a class="btn btn-custom-secondary" href="{{ route('logout') }}">{{ __('Log out') }}</a>
                             </li>

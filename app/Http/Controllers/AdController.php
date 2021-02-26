@@ -32,7 +32,11 @@ class AdController extends Controller
         $user = Auth::user();
 
         if ($user->admin) {
-            $ads = Ad::latest()->paginate(10);
+            if(!empty(request()) && request()->ads === 'myads') {
+                $ads = Ad::where('user_id', $user->id)->latest()->paginate(10);
+            } else {
+                $ads = Ad::latest()->paginate(10);
+            }
 
         } elseif (!$user->admin) {
             $ads = Ad::where('user_id', $user->id)->latest()->paginate(10);

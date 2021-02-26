@@ -36,6 +36,19 @@ class AdPolicy
         return true;
     }
 
+        /**
+     * Determine whether the user can view all models.
+     *
+     * @param  \App\Models\User  $user
+     * @return mixed
+     */
+    /*public function viewAll(User $user)
+    {
+        return $user->admin        
+            ? Response::allow()
+            : Response::deny('You are not an administrator.');
+    }*/
+
     /**
      * Determine whether the user can view the model.
      *

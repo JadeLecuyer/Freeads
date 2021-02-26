@@ -3,7 +3,7 @@
             
             <div class="col-10 col-md-11 mt-3 mt-md-0">
                 <div class="mb-2">
-                    <input type="search" name="search" class="form-control" placeholder="{{ old('search') ? old('search') : 'Search...' }}">
+                    <input type="search" name="search" class="form-control" placeholder="Search..." value="{{request('search')}}">
                 </div>
             </div>
 
@@ -19,7 +19,7 @@
                 <select name="category"  class="form-control">
                     <option value="">Categories</option>
                     @foreach($categories as $category)
-                        <option value="{{$category}}" {{ old('category') ? 'selected' : '' }} >{{ $category}}</option>
+                        <option value="{{$category}}" {{ (request('category') === $category) ? 'selected' : '' }} >{{ $category}}</option>
                     @endforeach
                 </select>
             </div>
@@ -27,24 +27,24 @@
             <div class="col-12 col-md-3 mt-3 mt-md-0">
                 <div class="input-group">
                     <span class="input-group-text col-4 col-md-6 col-lg-5">Max price</span>
-                    <input type="number" name="max_price" class="form-control" value="{{ old('max_price') }}">
+                    <input type="number" name="max_price" class="form-control" value="{{ request('max_price') }}">
                 </div>
             </div>
 
             <div class="col-12 col-md-3 mt-3 mt-md-0">
                 <div class="input-group">
                     <span class="input-group-text col-4 col-md-6 col-lg-5">Min price</span>
-                    <input type="number" name="min_price" class="form-control" value="{{ old('min_price') }}">
+                    <input type="number" name="min_price" class="form-control" value="{{ request('min_price') }}">
                 </div>
             </div>
 
             <div class="col-12 col-md-3 mt-3 mt-md-0">
                 <select name="sorting" class="form-control">
                     <option value="">Sorting options</option>
-                    <option value="price_asc" {{ old('sorting') ? 'selected' : '' }}>Price lowest to highest</option>
-                    <option value="price_desc" {{ old('sorting') ? 'selected' : '' }}>Price highest to lowest</option>
-                    <option value="alphabet_asc" {{ old('sorting') ? 'selected' : '' }}>A -> Z</option>
-                    <option value="alphabet_desc" {{ old('sorting') ? 'selected' : '' }}>Z -> A</option>
+                    <option value="price_asc" {{ (request('sorting') === "price_asc") ? 'selected' : '' }}>Price lowest to highest</option>
+                    <option value="price_desc" {{ (request('sorting') === "price_desc") ? 'selected' : '' }}>Price highest to lowest</option>
+                    <option value="alphabet_asc" {{ (request('sorting') === "alphabet_asc") ? 'selected' : '' }}>A -> Z</option>
+                    <option value="alphabet_desc" {{ (request('sorting') === "alphabet_desc") ? 'selected' : '' }}>Z -> A</option>
                 </select>
             </div>
 
