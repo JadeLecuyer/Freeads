@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AdController;
+use App\Http\Controllers\UserController;
 
 
 /*
@@ -48,7 +49,8 @@ Route::resource('ads', AdController::class);
 
 Route::post('/ads', [App\Http\Controllers\AdController::class, 'index'])->name('ads.index');
 
-
+// Users CRUD related routes 
+Route::resource('users', UserController::class);
 
 Route::get('/myinfo', function () {
     return view('welcome');

@@ -60,17 +60,18 @@
                                 </li>
 
                                 <li class="nav-item">
-                                    <a class="nav-link header__nav-link" href="{{ route('myinfo') }}">{{ __('Users administration') }}</a>
+                                    <a class="nav-link header__nav-link" href="{{ route('users.index') }}">{{ __('Users administration') }}</a>
                                 </li>
                             @else
                                 <li class="nav-item">
                                     <a class="nav-link header__nav-link" href="{{ route('ads.index') }}">{{ __('My ads') }}</a>
                                 </li>
-
-                                <li class="nav-item">
-                                    <a class="nav-link header__nav-link" href="{{ route('myinfo') }}">{{ __('Profile') }}</a>
-                                </li>
                             @endif
+
+                            <li class="nav-item">
+                                <a class="nav-link header__nav-link" href="{{ route('users.show',Auth::user()->id) }}">{{ __('Profile') }}</a>
+                            </li>
+
                             <li class="nav-item ml-md-3">
                                 <a class="btn btn-custom-secondary" href="{{ route('logout') }}">{{ __('Log out') }}</a>
                             </li>
