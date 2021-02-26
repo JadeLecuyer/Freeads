@@ -31,4 +31,24 @@ class Ad extends Model
         'location',
         'user_id'
     ];
+
+    public function scopeSearch($query)
+    {
+        return empty(request()->search) ? $query : $query->where('title', 'like', '%'.request()->search.'%');
+    }
+
+    public function scopeCategory($query)
+    {
+        return empty(request()->category) ? $query : $query->where('category', request()->category);
+    }
+
+    public function scopeMaxPrice($query)
+    {
+        return empty(request()->max_price) ? $query : $query->where('price', '<' , request()->max_price);
+    }
+
+    public function scopeMinPrice($query)
+    {
+        return empty(request()->min_price) ? $query : $query->where('price', '>' , request()->min_price);
+    }
 }
