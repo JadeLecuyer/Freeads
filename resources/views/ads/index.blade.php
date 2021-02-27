@@ -36,8 +36,8 @@
             <tr>
                 <th>Title</th>
                 <th>Category</th>
-                <th>Price</th>
-                <th>Seller</th>
+                <th>Price</th> 
+                @if (Auth::user()->admin)<th>Seller</th>@endif
                 <th>Action</th>
             </tr>
             @foreach ($ads as $ad)
@@ -45,7 +45,7 @@
                 <td>{{ $ad->title }}</td>
                 <td>{{ $ad->category }}</td>
                 <td>{{ $ad->price }}</td>
-                <td>{{ $ad->login }}</td>
+                @if (Auth::user()->admin)<td>{{ $ad->login }}</td>@endif
                 <td class="d-flex">
                     <a class="btn btn-custom-secondary mr-2" href="{{ route('ads.show',$ad->id) }}">See</a>
                     <a class="btn btn-success mr-2" href="{{ route('ads.edit',$ad->id) }}">Edit</a>

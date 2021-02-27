@@ -47,8 +47,6 @@ Route::post('/email/verification-notification', function (Request $request) {
 // Ads related routes 
 Route::resource('ads', AdController::class);
 
-//Route::post('/ads', [App\Http\Controllers\AdController::class, 'index'])->name('ads.index');
-
 // Users CRUD related routes 
 Route::resource('users', UserController::class);
 

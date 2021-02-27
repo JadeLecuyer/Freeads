@@ -95,7 +95,7 @@ class AdController extends Controller
     public function show(Ad $ad)
     {
         $seller = User::findorfail($ad->user_id);
-        return view('viewad',array_merge(compact('ad'), ['seller' => $seller]));
+        return view('ads.show',array_merge(compact('ad'), ['seller' => $seller]));
     }
 
     /**

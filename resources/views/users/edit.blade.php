@@ -40,6 +40,20 @@
             <input type="tel" name="phone" id="phone" class="form-control w-auto" value="{{ $user->phone }}" required>
         </div>
 
+        @if(Auth::user()->admin)
+        <div class="my-4">
+            <p>Is this user an administrator ?</p>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="admin" id="is_admin" value="1" @if($user->admin) checked @endif required>
+                <label class="form-check-label" for="is_admin">Yes, this user is an administrator</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="admin" id="not_admin" value="0" @if(!$user->admin) checked @endif>
+                <label class="form-check-label" for="not_admin">No, this user is not an administrator</label>
+            </div>
+        </div>
+        @endif
+
         <button type="submit" class="btn btn-custom-secondary my-2">Submit</button>
     
     </form>

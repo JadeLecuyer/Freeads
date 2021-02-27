@@ -77,12 +77,18 @@ class UserController extends Controller
             $validated = $request->validate([
                 'admin' => 'required|boolean',
             ]);
+
+            $user->update($request->all());
+
+            return redirect()->route('users.index')
+            ->with('success','User profile updated successfully.');
+
+        } else {
+            $user->update($request->except('admin'));
+
+            return redirect()->route('users.show', Auth::user()->id)
+            ->with('success','Profile updated successfully.');
         }
-
-        $user->update($request->all());
-
-        return redirect()->route('users.index')
-        ->with('success','User profile updated successfully.');
     }
 
     /**

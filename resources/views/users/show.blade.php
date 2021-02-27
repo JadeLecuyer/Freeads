@@ -21,18 +21,28 @@
 </div>
 
     <h3 class="my-3">Profile</h3>
-    <p><span class="font-weight-bold">Login</span> : {{ $user->login }}</p>
-    <p><span class="font-weight-bold">Nickname</span> : {{ $user->nickname }}</p>
 
+    @if ($message = Session::get('success'))
+        <div class="alert alert-success my-2">
+            <p class="m-0">{{ $message }}</p>
+        </div>
+    @endif
+    
     <div class="row">
         <div class="col-12 col-sm-9 col-lg-6">
             <div class="card">
                 <div class="card-header">
-                    Contact info
+                    <h5 class="card-title m-0">Contact info</h5>
                 </div>
                 <div class="card-body">
-                    <div><span class="card-text font-weight-bold">Email</span> : {{ $user->email }}</div>
-                    <div><span class="card-text font-weight-bold">Phone</span> : {{ $user->phone }}</div>
+                    <div class="mb-3">
+                        <div><span class="card-text font-weight-bold">Login</span> : {{ $user->login }}</div>
+                        <div><span class="card-text font-weight-bold">Nickname</span> : {{ $user->nickname }}</div>
+                    </div>
+                    <div class="">
+                        <div><span class="card-text font-weight-bold">Email</span> : {{ $user->email }}</div>
+                        <div><span class="card-text font-weight-bold">Phone</span> : {{ $user->phone }}</div>
+                    </div>
                 </div>
             </div>
         </div>

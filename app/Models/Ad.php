@@ -34,7 +34,13 @@ class Ad extends Model
 
     public function scopeSearch($query)
     {
-        return empty(request()->search) ? $query : $query->where('title', 'like', '%'.request()->search.'%');
+        if(!empty(request()->search)) {
+            $searchCriteria = explode(' ', request()->search);
+            foreach($searchCriteria as $search) {
+                $query = $query->where('title', 'like', '%'.$search.'%');
+            }
+        }
+        return $query;
     }
 
     public function scopeCategory($query)

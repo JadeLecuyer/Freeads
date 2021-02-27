@@ -12,6 +12,7 @@
         </div>
         <div class="col">
             <h2 class="fw-bold">{{ $ad->title }}</h2>
+            <h6 class="fw-bold text-muted text-uppercase">{{ $ad->category }}</h6>
             <p class="my-4">{{ $ad->description }}</p>
             <div class="mb-2">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-geo-alt card-ad__location-icon" viewBox="0 0 16 16">
